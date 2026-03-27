@@ -9,8 +9,8 @@ A responsive, single-page healthcare support platform built for NGO use, featuri
 
 | Resource | Link |
 |---|---|
-| **Live Demo** | *(Deploy to Netlify/Vercel — instructions below)* |
-| **GitHub Repo** | *(Push this folder to GitHub)* |
+| **Live Demo** |https://jazzy-moxie-bd3eea.netlify.app/|
+| **GitHub Repo** | https://github.com/aditivvs03/Mini-Healthcare-Support-Web-App |
 
 ---
 
