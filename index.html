@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediCare Connect — Healthcare Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F9F5EE;
+      --sage: #4A7C59;
+      --sage-light: #6B9E7A;
+      --sage-dark: #2E5939;
+      --rust: #C0503A;
+      --warm-gray: #6B6560;
+      --light-gray: #E8E4DD;
+      --white: #FFFFFF;
+      --text: #1A1714;
+      --shadow: 0 4px 24px rgba(26,23,20,0.10);
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,245,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-gray);
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem; color: var(--sage-dark);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { color: var(--rust); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--warm-gray);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sage-dark); }
+    .nav-cta {
+      background: var(--sage);
+      color: white; border: none; padding: 0.5rem 1.2rem;
+      border-radius: 100px; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--sage-dark); }
+
+    /* HERO */
+    .hero {
+      padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(74,124,89,0.12); color: var(--sage-dark);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.35rem 0.9rem;
+      border-radius: 100px; margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.12; color: var(--sage-dark);
+      margin-bottom: 1.25rem;
+    }
+    h1 em { color: var(--rust); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--warm-gray);
+      max-width: 420px; margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--sage); color: white;
+      border: none; padding: 0.85rem 2rem;
+      border-radius: 100px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--sage-dark);
+      border: 2px solid var(--sage); padding: 0.85rem 2rem;
+      border-radius: 100px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--sage); color: white; }
+
+    /* Stats card on hero right */
+    .hero-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .stat-card {
+      background: white; border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: var(--shadow);
+      animation: floatUp 0.6s ease both;
+    }
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; margin-top: 1.5rem; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; margin-top: 1.5rem; }
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .stat-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; color: var(--sage-dark);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--warm-gray); margin-top: 0.2rem; }
+
+    /* SECTIONS */
+    section { padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem); }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rust);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--sage-dark); margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--warm-gray); max-width: 540px; line-height: 1.7; }
+
+    /* FORMS TABS */
+    #forms { background: white; }
+    .tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.4rem; border-radius: 100px;
+      border: 2px solid var(--light-gray); background: transparent;
+      font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
+      color: var(--warm-gray); cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--sage); border-color: var(--sage);
+      color: white;
+    }
+    .form-panel { display: none; animation: fadeIn 0.3s ease; }
+    .form-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+    label span { color: var(--rust); }
+    input, select, textarea {
+      padding: 0.75rem 1rem; border-radius: 10px;
+      border: 1.5px solid var(--light-gray); background: var(--cream);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,124,89,0.12);
+    }
+    textarea { resize: vertical; min-height: 100px; }
+    .submit-btn {
+      margin-top: 1.5rem;
+      background: var(--sage); color: white;
+      border: none; padding: 0.9rem 2.5rem;
+      border-radius: 100px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .submit-btn:hover { background: var(--sage-dark); transform: translateY(-1px); }
+    .form-success {
+      display: none; background: rgba(74,124,89,0.08);
+      border: 1px solid rgba(74,124,89,0.25); border-radius: var(--radius);
+      padding: 1.5rem; text-align: center; margin-top: 1.5rem;
+    }
+    .form-success.show { display: block; }
+    .form-success h3 { color: var(--sage-dark); font-family: 'DM Serif Display', serif; }
+    .form-success p { color: var(--warm-gray); font-size: 0.9rem; margin-top: 0.4rem; }
+
+    /* AI SUMMARY BOX */
+    .ai-summary {
+      background: var(--cream); border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem; display: none;
+    }
+    .ai-summary.show { display: block; animation: fadeIn 0.4s ease; }
+    .ai-summary-header {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--sage-dark);
+      margin-bottom: 0.75rem;
+    }
+    .ai-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--sage); animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .ai-summary p { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.7; }
+
+    /* CHATBOT */
+    #chatbot { background: var(--cream); }
+    .chat-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; }
+    .chat-info h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--sage-dark); margin-bottom: 0.75rem; }
+    .chat-info p { color: var(--warm-gray); font-size: 0.9rem; line-height: 1.7; }
+    .faq-chips { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.25rem; }
+    .faq-chip {
+      background: white; border: 1.5px solid var(--light-gray);
+      border-radius: 10px; padding: 0.65rem 1rem;
+      font-size: 0.85rem; color: var(--text); cursor: pointer;
+      transition: all 0.2s; text-align: left;
+    }
+    .faq-chip:hover { border-color: var(--sage); color: var(--sage-dark); background: rgba(74,124,89,0.04); }
+    .faq-chip::before { content: '→ '; color: var(--sage); font-weight: 700; }
+
+    .chat-window {
+      background: white; border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+      height: 480px;
+    }
+    .chat-header {
+      background: var(--sage-dark); padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .chat-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--sage-light); display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .chat-header-info h4 { color: white; font-size: 0.9rem; font-weight: 600; }
+    .chat-header-info span { color: rgba(255,255,255,0.65); font-size: 0.75rem; }
+    .online-dot {
+      width: 8px; height: 8px; background: #5DD67A;
+      border-radius: 50%; display: inline-block;
+      margin-right: 4px; animation: pulse 2s infinite;
+    }
+
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1.25rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .msg { display: flex; gap: 0.6rem; align-items: flex-end; }
+    .msg.user { flex-direction: row-reverse; }
+    .msg-bubble {
+      max-width: 72%; padding: 0.7rem 1rem; border-radius: 16px;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    .msg.bot .msg-bubble {
+      background: var(--cream); color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user .msg-bubble {
+      background: var(--sage); color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--sage-light); display: flex; align-items: center;
+      justify-content: center; font-size: 0.75rem; flex-shrink: 0;
+    }
+    .typing { display: flex; gap: 4px; align-items: center; padding: 0.7rem 1rem; }
+    .typing span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--warm-gray); animation: bounce 1.2s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+    .chat-input-area {
+      display: flex; gap: 0.5rem; padding: 1rem 1.25rem;
+      border-top: 1px solid var(--light-gray);
+    }
+    #chat-input {
+      flex: 1; padding: 0.65rem 1rem; border-radius: 100px;
+      border: 1.5px solid var(--light-gray); background: var(--cream);
+      font-family: 'DM Sans', sans-serif; font-size: 0.875rem; outline: none;
+    }
+    #chat-input:focus { border-color: var(--sage); }
+    #send-btn {
+      background: var(--sage); color: white; border: none;
+      width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+      font-size: 1rem; transition: background 0.2s; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #send-btn:hover { background: var(--sage-dark); }
+
+    /* HOW IT WORKS */
+    #how { background: white; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .step { position: relative; }
+    .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem; color: var(--light-gray);
+      line-height: 1; margin-bottom: 0.75rem;
+    }
+    .step h4 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .step p { font-size: 0.875rem; color: var(--warm-gray); line-height: 1.6; }
+    .step-connector {
+      position: absolute; top: 1.75rem; right: -1rem;
+      width: 2rem; height: 2px; background: var(--light-gray);
+    }
+    .step:last-child .step-connector { display: none; }
+
+    /* FOOTER */
+    footer {
+      background: var(--sage-dark); color: rgba(255,255,255,0.7);
+      text-align: center; padding: 2rem;
+      font-size: 0.85rem;
+    }
+    footer strong { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .chat-layout { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .step-connector { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🌿 Medi<span>Care</span> Connect</div>
+  <ul class="nav-links">
+    <li><a href="#forms">Register</a></li>
+    <li><a href="#chatbot">AI Assistant</a></li>
+    <li><a href="#how">How It Works</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('forms').scrollIntoView({behavior:'smooth'})">Get Support</button>
+</nav>
+
+<!-- HERO -->
+<section style="padding-top: 0; padding-bottom: 0;">
+  <div class="hero">
+    <div>
+      <div class="hero-badge">NGO Healthcare Initiative</div>
+      <h1>Healthcare <em>support</em> for every community</h1>
+      <p class="hero-sub">Connecting patients with volunteers, resources, and AI-powered guidance — because quality care should never depend on who you know.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#forms">Register Now</a>
+        <a class="btn-outline" href="#chatbot">Ask Our AI →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-card">
+        <div class="stat-icon">🏥</div>
+        <div class="stat-num">2,400+</div>
+        <div class="stat-label">Patients Supported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🤝</div>
+        <div class="stat-num">380</div>
+        <div class="stat-label">Active Volunteers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Districts Covered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">AI Chat Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section id="forms">
+  <div class="section-inner">
+    <div class="section-tag">Registration & Support</div>
+    <h2 class="section-title">How can we help you?</h2>
+    <p class="section-sub">Fill the appropriate form below. Our team reviews submissions within 24 hours.</p>
+
+    <div class="tabs" style="margin-top: 2rem;">
+      <button class="tab-btn active" onclick="switchTab('patient')">🏥 Patient Support</button>
+      <button class="tab-btn" onclick="switchTab('volunteer')">🤝 Volunteer Registration</button>
+      <button class="tab-btn" onclick="switchTab('contact')">💬 Contact Us</button>
+    </div>
+
+    <!-- PATIENT FORM -->
+    <div class="form-panel active" id="panel-patient">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name <span>*</span></label>
+          <input type="text" id="p-name" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Age <span>*</span></label>
+          <input type="number" id="p-age" placeholder="Your age" min="1" max="120" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span>*</span></label>
+          <input type="tel" id="p-phone" placeholder="+91 XXXXX XXXXX" />
+        </div>
+        <div class="form-group">
+          <label>City / District <span>*</span></label>
+          <input type="text" id="p-city" placeholder="e.g. Davangere" />
+        </div>
+        <div class="form-group">
+          <label>Type of Support Needed <span>*</span></label>
+          <select id="p-support">
+            <option value="">Select type...</option>
+            <option>Medical Consultation</option>
+            <option>Medicine Access</option>
+            <option>Mental Health Support</option>
+            <option>Home Care Assistance</option>
+            <option>Emergency Transportation</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Urgency Level</label>
+          <select id="p-urgency">
+            <option value="">Select urgency...</option>
+            <option>Low – within a week</option>
+            <option>Medium – within 2–3 days</option>
+            <option>High – within 24 hours</option>
+            <option>Critical – immediate help needed</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Describe Your Situation <span>*</span></label>
+          <textarea id="p-desc" placeholder="Please briefly describe what kind of help you need and any relevant health details..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm('patient')">Submit Patient Request →</button>
+      <div class="ai-summary" id="summary-patient">
+        <div class="ai-summary-header"><div class="ai-dot"></div> AI Summary Generated</div>
+        <p id="summary-text-patient"></p>
+      </div>
+      <div class="form-success" id="success-patient">
+        <h3>✅ Request Submitted Successfully!</h3>
+        <p>Our support coordinator will contact you within the time frame matching your urgency level. Please keep your phone accessible.</p>
+      </div>
+    </div>
+
+    <!-- VOLUNTEER FORM -->
+    <div class="form-panel" id="panel-volunteer">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name <span>*</span></label>
+          <input type="text" id="v-name" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Email <span>*</span></label>
+          <input type="email" id="v-email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone <span>*</span></label>
+          <input type="tel" id="v-phone" placeholder="+91 XXXXX XXXXX" />
+        </div>
+        <div class="form-group">
+          <label>Profession / Background</label>
+          <input type="text" id="v-profession" placeholder="e.g. Nurse, Student, Retired Doctor" />
+        </div>
+        <div class="form-group">
+          <label>Area of Expertise <span>*</span></label>
+          <select id="v-expertise">
+            <option value="">Select area...</option>
+            <option>Medical / Clinical</option>
+            <option>Mental Health Counselling</option>
+            <option>Transportation / Logistics</option>
+            <option>Administrative Support</option>
+            <option>Community Outreach</option>
+            <option>Technical / Digital</option>
+            <option>General Volunteering</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Availability <span>*</span></label>
+          <select id="v-avail">
+            <option value="">Select...</option>
+            <option>Weekdays only</option>
+            <option>Weekends only</option>
+            <option>Flexible / Any time</option>
+            <option>On-call / Emergency only</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Why do you want to volunteer?</label>
+          <textarea id="v-why" placeholder="Tell us a bit about your motivation and any relevant experience..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm('volunteer')">Register as Volunteer →</button>
+      <div class="ai-summary" id="summary-volunteer">
+        <div class="ai-summary-header"><div class="ai-dot"></div> AI Profile Summary</div>
+        <p id="summary-text-volunteer"></p>
+      </div>
+      <div class="form-success" id="success-volunteer">
+        <h3>✅ Volunteer Profile Created!</h3>
+        <p>Thank you for offering your time and skills! Our team will reach out shortly to onboard you and match you with needs in your area.</p>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="form-panel" id="panel-contact">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Your Name <span>*</span></label>
+          <input type="text" id="c-name" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label>Email <span>*</span></label>
+          <input type="email" id="c-email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group full">
+          <label>Subject <span>*</span></label>
+          <input type="text" id="c-subject" placeholder="What is this regarding?" />
+        </div>
+        <div class="form-group full">
+          <label>Message <span>*</span></label>
+          <textarea id="c-msg" placeholder="Write your message here..." style="min-height: 140px;"></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm('contact')">Send Message →</button>
+      <div class="form-success" id="success-contact">
+        <h3>✅ Message Received!</h3>
+        <p>We'll respond to your message within 1–2 business days. For urgent matters, please use the Patient Support form.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHATBOT -->
+<section id="chatbot">
+  <div class="section-inner">
+    <div class="section-tag">AI-Powered Support</div>
+    <h2 class="section-title">Ask our healthcare assistant</h2>
+    <p class="section-sub" style="margin-bottom: 2.5rem;">Get instant answers to common questions about our services, eligibility, and how to access support.</p>
+
+    <div class="chat-layout">
+      <div class="chat-info">
+        <h3>Frequently Asked Questions</h3>
+        <p>Click any question below to get an instant AI-powered answer, or type your own question in the chat.</p>
+        <div class="faq-chips">
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">Who is eligible for patient support?</button>
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">How do I register as a volunteer?</button>
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">Are your services free of charge?</button>
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">How quickly will I hear back after applying?</button>
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">What areas do you currently serve?</button>
+          <button class="faq-chip" onclick="sendFAQ(this.textContent.slice(2))">Can I donate to MediCare Connect?</button>
+        </div>
+      </div>
+
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-avatar">🤖</div>
+          <div class="chat-header-info">
+            <h4>MediCare AI Assistant</h4>
+            <span><span class="online-dot"></span>Online — always ready to help</span>
+          </div>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg bot">
+            <div class="msg-avatar">🤖</div>
+            <div class="msg-bubble">Hi! 👋 I'm the MediCare Connect assistant. I can answer questions about our healthcare support services, volunteer programs, and eligibility. How can I help you today?</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input id="chat-input" type="text" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMessage()" />
+          <button id="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-tag">Process</div>
+    <h2 class="section-title">How MediCare Connect works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Submit Your Request</h4>
+        <p>Fill out a simple form for patient support, volunteer registration, or general enquiry. Takes less than 3 minutes.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>AI Reviews & Summarises</h4>
+        <p>Our AI system generates an instant summary of your submission and flags urgency — so coordinators can prioritise effectively.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>We Connect & Support</h4>
+        <p>Our team matches patients with the right volunteers or resources and reaches out within your required timeframe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>MediCare Connect</strong> — An NGO Healthcare Support Platform &nbsp;|&nbsp; Built with ❤️ for community wellbeing<br>
+  <span style="font-size:0.78rem; margin-top: 0.5rem; display:block;">AI Idea: Automated form summary generation + FAQ chatbot for 24/7 support access</span>
+</footer>
+
+<script>
+  // ---- TABS ----
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // ---- FORM SUBMISSION WITH AI SUMMARY ----
+  function submitForm(type) {
+    let summary = '';
+    let valid = true;
+
+    if (type === 'patient') {
+      const name = document.getElementById('p-name').value.trim();
+      const age = document.getElementById('p-age').value;
+      const city = document.getElementById('p-city').value.trim();
+      const support = document.getElementById('p-support').value;
+      const urgency = document.getElementById('p-urgency').value;
+      const desc = document.getElementById('p-desc').value.trim();
+      if (!name || !age || !city || !support || !desc) { alert('Please fill in all required fields.'); return; }
+      summary = `Patient ${name}, age ${age}, from ${city} has requested "${support}" support. Urgency: ${urgency || 'Not specified'}. Their situation: "${desc.slice(0,120)}${desc.length > 120 ? '...' : ''}" — Request has been queued and a coordinator will be assigned within the appropriate timeframe.`;
+    } else if (type === 'volunteer') {
+      const name = document.getElementById('v-name').value.trim();
+      const profession = document.getElementById('v-profession').value.trim();
+      const expertise = document.getElementById('v-expertise').value;
+      const avail = document.getElementById('v-avail').value;
+      if (!name || !expertise || !avail) { alert('Please fill in all required fields.'); return; }
+      summary = `Volunteer profile created for ${name}${profession ? ' (' + profession + ')' : ''}. Area of expertise: "${expertise}". Availability: ${avail}. Profile is active and will be matched with community needs in their area.`;
+    } else {
+      const name = document.getElementById('c-name').value.trim();
+      const subject = document.getElementById('c-subject').value.trim();
+      if (!name || !subject) { alert('Please fill in all required fields.'); return; }
+      document.getElementById('success-' + type).classList.add('show');
+      return;
+    }
+
+    if (summary) {
+      const summaryEl = document.getElementById('summary-' + type);
+      document.getElementById('summary-text-' + type).textContent = summary;
+      summaryEl.classList.add('show');
+      setTimeout(() => {
+        document.getElementById('success-' + type).classList.add('show');
+      }, 1200);
+    }
+  }
+
+  // ---- CHATBOT ----
+  const faqs = {
+    "who is eligible for patient support": "Anyone in our service districts who needs healthcare assistance is eligible — regardless of income or background. Priority is given to senior citizens, children, and those with critical or chronic conditions. Simply fill out the Patient Support form and our team will assess your needs.",
+    "how do i register as a volunteer": "You can register using the Volunteer Registration tab above. Fill in your background, area of expertise, and availability. Our coordinator will review your profile within 2–3 working days and reach out for onboarding. No medical background is required for many roles!",
+    "are your services free of charge": "Yes — all services provided by MediCare Connect are completely free for patients. We are an NGO funded by grants, corporate CSR programs, and individual donors. If you'd like to support our mission financially, reach out via the Contact form.",
+    "how quickly will i hear back after applying": "Response time depends on your urgency level. Critical cases: within a few hours. High urgency: within 24 hours. Medium urgency: 2–3 days. Low urgency or general enquiries: up to 5 working days.",
+    "what areas do you currently serve": "We currently operate across 12 districts, with active networks in urban and semi-urban areas. We're rapidly expanding. Check the Contact form to enquire about your specific location.",
+    "can i donate to medicare connect": "Absolutely! We welcome monetary donations, medicine drives, and in-kind contributions. Please reach out via the Contact form with 'Donation' in the subject line and our partnerships team will get in touch with you.",
+  };
+
+  function normalise(text) {
+    return text.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
+  }
+
+  function getBotReply(userMsg) {
+    const norm = normalise(userMsg);
+    for (const [key, val] of Object.entries(faqs)) {
+      const keywords = key.split(' ');
+      const matches = keywords.filter(k => norm.includes(k) && k.length > 3);
+      if (matches.length >= 2) return val;
+    }
+    if (norm.includes('hello') || norm.includes('hi') || norm.includes('hey')) {
+      return "Hello! 👋 How can I assist you today? You can ask me about patient eligibility, volunteering, our services, or response times.";
+    }
+    if (norm.includes('thank')) return "You're very welcome! Is there anything else I can help you with?";
+    if (norm.includes('emergency') || norm.includes('urgent')) {
+      return "If this is a medical emergency, please call 108 (India's emergency helpline) immediately. For urgent but non-emergency support, fill the Patient Support form above and select 'Critical' as your urgency level.";
+    }
+    return "That's a great question! I don't have a specific answer for that, but our support team would love to help. Please use the Contact form above or ask about: eligibility, volunteer registration, our services, response times, or donations.";
+  }
+
+  function appendMsg(text, type) {
+    const container = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = type === 'bot'
+      ? `<div class="msg-avatar">🤖</div><div class="msg-bubble">${text}</div>`
+      : `<div class="msg-bubble">${text}</div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function showTyping() {
+    const container = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg bot'; div.id = 'typing-indicator';
+    div.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    appendMsg(text, 'user');
+    input.value = '';
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      appendMsg(getBotReply(text), 'bot');
+    }, 900 + Math.random() * 600);
+  }
+
+  function sendFAQ(question) {
+    document.getElementById('chatbot').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      appendMsg(question, 'user');
+      showTyping();
+      setTimeout(() => {
+        removeTyping();
+        appendMsg(getBotReply(question), 'bot');
+      }, 900);
+    }, 400);
+  }
+</script>
+</body>
+</html>
